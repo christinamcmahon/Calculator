@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-
 public class Calculator extends JFrame
 {
     private JTextArea display; 
