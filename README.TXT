@@ -4,9 +4,7 @@ Tell the reader (someone who does not know anything about this project)
 all he/she needs to know. The comments should usually include at least:
 ------------------------------------------------------------------------
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+PROJECT TITLE: Calculator
+PURPOSE OF PROJECT: Work on a team to create a calculator using Java.
+VERSION or DATE: Spring 2019
+AUTHORS: Christina McMahon, Yong Long Tan, Keziah May (Seattle Central Dev Team)
