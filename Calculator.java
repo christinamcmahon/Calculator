@@ -11,6 +11,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class Calculator extends JFrame
 {
     private JTextArea display; 
@@ -35,6 +36,9 @@ public class Calculator extends JFrame
     private JButton multiplication;
     private JButton division;
     private JButton backspace;
+    private JButton openedParenthesis;
+    private JButton closedParenthesis;
+    private JButton exponential;
 
     private JMenuBar menuBar;
     private JMenu file;
@@ -116,7 +120,7 @@ public class Calculator extends JFrame
         display = new JTextArea();
 
         //create a white bar
-        display.setBounds(10, 10, 280, 50);
+        display.setBounds(10, 10, 350, 50);
         display.setEditable(false);
 
         //make the numbers display at the right side of the bar
@@ -307,13 +311,37 @@ public class Calculator extends JFrame
 
         addition = new JButton("+");
         addition.setBounds(226,70,65,55);
+        addition.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (display.getText().length() > 13)
+                        return;
+                    if (display.getText().equalsIgnoreCase("0")) {
+                        display.setText("0");
+                        return;
+                    }
+                    display.append("+");
+                }
+            });
         add(addition);
 
         subtraction = new JButton("-");
         subtraction.setBounds(226,132,65,55);
+        subtraction.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (display.getText().length() > 13)
+                        return;
+                    if (display.getText().equalsIgnoreCase("0")) {
+                        display.setText("0");
+                        return;
+                    }
+                    display.append("-");
+                }
+            });
         add(subtraction);
 
-        multiplication = new JButton("x");
+        multiplication = new JButton("*");
         multiplication.setBounds(226,194,65,55);
         add(multiplication);
 
@@ -324,11 +352,23 @@ public class Calculator extends JFrame
         backspace = new JButton("\u232b");
         backspace.setBounds(226,316,65,55);
         add(backspace);
+
+        openedParenthesis = new JButton("(");
+        openedParenthesis.setBounds(298,254,65,55);
+        add(openedParenthesis);
+
+        closedParenthesis = new JButton(")");
+        closedParenthesis.setBounds(298,316,65,55);
+        add(closedParenthesis);
+
+        exponential = new JButton("e");
+        exponential.setBounds(298,194,65,55);
+        add(exponential);
     }
 
     private void sendUI(Calculator app) {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setSize(300,425);
+        app.setSize(400,450);
         app.setResizable(false);
         app.setLayout(null);
         app.setLocationRelativeTo(null);
