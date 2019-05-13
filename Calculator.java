@@ -1,10 +1,13 @@
 /**
  * Write a description of class Calculator here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Seattle Central Dev Team   
+ * @version Spring 2019
  */
 import javax.swing.*;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -33,19 +36,85 @@ public class Calculator extends JFrame
     private JButton division;
     private JButton backspace;
 
+    private JMenuBar menuBar;
+    private JMenu file;
+    private JMenu edit;
+    private JMenu help;
+    private JMenuItem close;
+    private JMenuItem copy;
+    private JMenuItem darkMode;
+    private JMenuItem lightMode;
+    private JMenuItem view;
+    private JMenuItem about;
+
     public static void Main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            JFrame.setDefaultLookAndFeelDecorated(true);
+        } catch(Exception e) {
+            System.out.println("Could not load System look.");
+        }
         new Calculator();
     }
 
     public Calculator() {
+        super("Calculator");
+        sendMenuBar();
         setDisplay();
         setButtons();
-        setUI(this);
+        sendUI(this);
+    }
+
+    private void sendMenuBar() {
+        menuBar = new JMenuBar();
+        file = new JMenu(" File ");
+        edit = new JMenu(" Edit ");
+        help = new JMenu(" Help ");
+        close = new JMenuItem("Close");
+        copy = new JMenuItem("Copy");
+        darkMode = new JMenuItem("Dark Mode");
+        lightMode = new JMenuItem("Light Mode");
+        about = new JMenuItem("About Calculator");
+        setJMenuBar(menuBar);
+        menuBar.add(file);
+        menuBar.add(edit);
+        menuBar.add(help);
+
+        close.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    System.exit(0);
+                }
+            });
+
+        copy.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String display = "";
+                    StringSelection string = new StringSelection(display);
+                    Clipboard system = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    system.setContents(string, string);
+                }
+            });
+
+        about.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, "Calculator created by the Seattle Central Dev Team, Spring 2019",
+                        "Calculator", JOptionPane.OK_OPTION);
+                }
+            });
+
+        file.add(close);
+        edit.add(copy);
+        edit.add(darkMode);
+        edit.add(lightMode);
+        help.add(about);
     }
 
     private void setDisplay() {
         display = new JTextArea();
-        
+
         //create a white bar
         display.setBounds(10, 10, 280, 50);
         display.setEditable(false);
@@ -219,7 +288,7 @@ public class Calculator extends JFrame
                 }
             });
         add(nine);
-        
+
         decimal = new JButton(".");
         decimal.setBounds(10,256,65,55);
         add(decimal);
@@ -257,9 +326,9 @@ public class Calculator extends JFrame
         add(backspace);
     }
 
-    private void setUI(Calculator app) {
+    private void sendUI(Calculator app) {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        app.setSize(300,400);
+        app.setSize(300,425);
         app.setResizable(false);
         app.setLayout(null);
         app.setLocationRelativeTo(null);
